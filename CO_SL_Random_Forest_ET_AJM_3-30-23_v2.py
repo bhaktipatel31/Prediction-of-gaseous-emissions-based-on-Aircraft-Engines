@@ -108,7 +108,7 @@ def detect_outliers_iqr(BpCO2):
     upr_bound_2 = q3_2+(1.5*IQR2)
     # print(lwr_bound, upr_bound)
     for i in BpCO2: 
-        if (i<lwr_bound_2 or i>upr_bound_2):
+        if (i<lwr_bound_2 or i>upr_bound_2): 
             outliers2.append(i)
     return outliers2 # Driver code
 BpCO2_outliers = detect_outliers_iqr(BpCO2)
