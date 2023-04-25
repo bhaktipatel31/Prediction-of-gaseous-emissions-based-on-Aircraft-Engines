@@ -40,6 +40,8 @@ gesTest3 = gesNO
 print('NaN Count =', gesTest3.isna().sum().sum())
 
 
+#### Choose NaN/Missing Valu Treatment:
+    
 # ## Option 1: Set NaN/missing values to zero
 # gesNO = gesNO.replace(np.nan,0) 
 # ## print(gesNO.shape)
@@ -68,6 +70,8 @@ gesNO['NOx LTO Total mass (g)'].fillna(gesNO['NOx LTO Total mass (g)'].median(),
 #dummy encoding for engine type
 gesNO1 = pd.get_dummies(gesNO, columns=['Eng Type'])
 print(gesNO1)
+gesNO1.to_excel('gesNO1_test.xlsx')
+
 BpNO = gesNO1['B/P Ratio']
 FuelLto = gesNO1['Fuel LTO Cycle (kg)']
 
@@ -85,7 +89,7 @@ desc = gesNO1.describe(include='all').T
 # #print(gesNO2)
 # ## Drop the Eng Type_TF column from df
 # gesNO2 = gesNO2.drop(['Eng Type_TF'],axis=1).values
-# print(gesNO2)
+# ##print(gesNO2)
 
 
 ### Select rows based on condition: TF
@@ -224,20 +228,8 @@ lenY = len(y_pred)
 #print(y_pred)
 
 
-# # Check if prediction is correct
-# # out1 = ml.predict([[2.64,85]])
-# # print(out1) 
-# # out1 = 1420.2 and y_actual = 823
 
-
-
-# # If things were looking good, the next steps would be:
-    
-# # Step 7: Evaluate the model
-# # Step 8: Plot the results
-# # Step 9: Predicted Values
-
-# Going to still plot y-pred and y-test
+# Plot y-pred and y-test
 
 ### Scatterplot
 list2 = np.linspace(1,lenY,lenY)
@@ -252,7 +244,7 @@ plt.scatter(list2,y_test,label='Test Y Values')
 
 
 ### Label Plot
-plt.title('Scatterplot for Y_Pred vs Y_Test')
+plt.title('NOx Scatterplot for Y_Pred vs Y_Test')
 plt.legend()
 plt.show()
 

@@ -39,16 +39,17 @@ gesTest3 = gesHC
 #print(gesTest3)
 print('NaN Count =', gesTest3.isna().sum().sum())
 
+#### Choose NaN/Missing Valu Treatment:
 
 # ## Option 1: Set NaN/missing values to zero
 # gesHC = gesHC.replace(np.nan,0) 
 # #print(gesHC.shape)
 
 
-## Option 2: Remove rows with NaN and and missing values
-gesHC[gesHC==np.inf] = np.nan #remove NaN
-gesHC = gesHC.dropna(axis=0) #to remove rows with missing values
-#print(gesHC.shape)
+# ## Option 2: Remove rows with NaN and and missing values
+# gesHC[gesHC==np.inf] = np.nan #remove NaN
+# gesHC = gesHC.dropna(axis=0) #to remove rows with missing values
+# #print(gesHC.shape)
 
 
 # ### Option 3: Median Imputation
@@ -57,10 +58,10 @@ gesHC = gesHC.dropna(axis=0) #to remove rows with missing values
 # gesHC['HC LTO Total mass (g)'].fillna(gesHC['HC LTO Total mass (g)'].median(), inplace=True)
 
 
-# ### Option 4: Mean Imputation
-# gesHC['B/P Ratio'].fillna(gesHC['B/P Ratio'].mean(), inplace=True)
-# gesHC['Fuel LTO Cycle (kg)'].fillna(gesHC['Fuel LTO Cycle (kg)'].mean(), inplace=True)
-# gesHC['HC LTO Total mass (g)'].fillna(gesHC['HC LTO Total mass (g)'].mean(), inplace=True)
+### Option 4: Mean Imputation
+gesHC['B/P Ratio'].fillna(gesHC['B/P Ratio'].mean(), inplace=True)
+gesHC['Fuel LTO Cycle (kg)'].fillna(gesHC['Fuel LTO Cycle (kg)'].mean(), inplace=True)
+gesHC['HC LTO Total mass (g)'].fillna(gesHC['HC LTO Total mass (g)'].mean(), inplace=True)
 
 
 # 3 independent variables (x values)
@@ -80,20 +81,20 @@ desc = gesHC1.describe(include='all').T
 ### Choose either TF or MTF:
 
 
-# ## Select rows based on condition: MTF
-# gesHC2 = gesHC1[(gesHC1['Eng Type_MTF'] == 1)]
-# #print(gesHC2)
-# ## Drop the Eng Type_TF column from df
-# gesHC2 = gesHC2.drop(['Eng Type_TF'],axis=1).values
-# #print(gesHC2)
-
-
-## Select rows based on condition: TF
-gesHC2 = gesHC1[(gesHC1['Eng Type_TF'] == 1)]
+## Select rows based on condition: MTF
+gesHC2 = gesHC1[(gesHC1['Eng Type_MTF'] == 1)]
 #print(gesHC2)
-## Drop the Eng Type_MTF column from df
-gesHC2 = gesHC2.drop(['Eng Type_MTF'],axis=1).values
-print(gesHC2)
+## Drop the Eng Type_TF column from df
+gesHC2 = gesHC2.drop(['Eng Type_TF'],axis=1).values
+#print(gesHC2)
+
+
+# ## Select rows based on condition: TF
+# gesHC2 = gesHC1[(gesHC1['Eng Type_TF'] == 1)]
+# #print(gesHC2)
+# ## Drop the Eng Type_MTF column from df
+# gesHC2 = gesHC2.drop(['Eng Type_MTF'],axis=1).values
+# ###print(gesHC2)
 
 
 ######## Outlier Treament Applied: IQR Method
@@ -224,20 +225,8 @@ lenY = len(y_pred)
 ##print(y_pred)
 
 
-# # Check if prediction is correct
-# # out1 = ml.predict([[2.64,85]])
-# # print(out1) 
-# # out1 = 1420.2 and y_actual = 823
 
-
-
-# # If things were looking good, the next steps would be:
-    
-# # Step 7: Evaluate the model
-# # Step 8: Plot the results
-# # Step 9: Predicted Values
-
-# Going to still plot y-pred and y-test
+# Plot y-pred and y-test
 
 # Scatterplot
 list2 = np.linspace(1,lenY,lenY)
@@ -246,7 +235,7 @@ plt.scatter(list2,y_test,label='Test Y Values')
 
 
 # Label Plot
-plt.title('Scatterplot for Y_Pred vs Y_Test')
+plt.title('HC Scatterplot for Y_Pred vs Y_Test')
 plt.legend()
 plt.show()
 
